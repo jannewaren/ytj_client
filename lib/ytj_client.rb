@@ -9,7 +9,7 @@ module YtjClient
     # for now returns a set of data that I think is generally useful
     def fetch_company(business_id)
       ytj_data = api_call(business_id)
-      data = {
+      {
         business_id:        ytj_data["businessId"],
         name:               ytj_data["name"],
         registration_date:  ytj_data["registrationDate"],

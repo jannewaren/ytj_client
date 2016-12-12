@@ -1,7 +1,6 @@
 require 'spec_helper'
 require 'rest-client'
 
-
 describe YtjClient do
   it 'has a version number' do
     expect(YtjClient::VERSION).not_to be nil
@@ -9,7 +8,13 @@ describe YtjClient do
 
   it 'fetches a company with business_id', vcr: { cassette_name: 'ytj_fetch_success' } do
     data = described_class.fetch_company('2331972-7')
-    expect(data[:name]).to eq('Verso Food Oy')
+    expect(data[:business_id]).to eq('2331972-7')
+    expect(data[:registration_date]).to eq('2010-04-20')
+    expect(data[:company_form]).to eq('OY')
+    expect(data[:phones][:mobile_phone]).to eq('+358400770697')
+    expect(data[:website]).to eq('www.versofood.fi')
+    expect(data[:addresses][:visiting_address]).to eq('Loisteputki 4, 00750, HELSINKI')
+    expect(data[:addresses][:postal_address]).to eq('Loisteputki 4, 00750, HELSINKI')
     ap data
   end
 
