@@ -1,8 +1,8 @@
-# YtjClient
+# ytj_client
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ytj_client`. To experiment with that code, run `bin/console` for an interactive prompt.
+A really small gem to fetch and parse data from the Finnish Patent and Registration Office's (PRH) YTJ-tiedot (business information system) API at http://avoindata.prh.fi/ytj.html
 
-TODO: Delete this and the text above, and describe your gem
+Makes the API call for you and parses the relevant (in my opinion) information to a convenient format (Ruby hash).
 
 ## Installation
 
@@ -14,7 +14,7 @@ gem 'ytj_client'
 
 And then execute:
 
-    $ bundle
+    $ bundle intall
 
 Or install it yourself as:
 
@@ -22,15 +22,25 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Currently only supports getting company information with a business_id:
 
-## Development
+```ruby
+require 'ytj_client'
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ytj_client.
+YtjClient.fetch_company('2331972-7')
+# => #Hash {
+#           :business_id => "2331972-7",
+#                  :name => "Verso Food Oy",
+#     :registration_date => "2010-04-20",
+#          :company_form => "OY",
+#                :phones => {
+#         :mobile_phone => "+358400770697"
+#     },
+#               :website => "www.versofood.fi",
+#             :addresses => {
+#         :visiting_address => "Loisteputki 4, 00750, HELSINKI",
+#           :postal_address => "Loisteputki 4, 00750, HELSINKI"
+#     }
+# }
+```
 
