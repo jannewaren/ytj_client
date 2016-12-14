@@ -77,7 +77,7 @@ module YtjClient
       end
 
       def logger
-        @logger ||= Logger.new('ytj_client.log')
+        @logger ||= Logger.new('log/ytj_client.log')
       end
   end
 end
