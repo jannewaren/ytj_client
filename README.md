@@ -1,8 +1,8 @@
 # ytj_client
 
 [![Gem Version](https://badge.fury.io/rb/ytj_client.svg)](https://badge.fury.io/rb/ytj_client)
-
 [![Dependency Status](https://gemnasium.com/badges/github.com/jannewaren/ytj_client.svg)](https://gemnasium.com/github.com/jannewaren/ytj_client)
+[![Build Status](https://travis-ci.org/jannewaren/ytj_client.svg?branch=master)](https://travis-ci.org/jannewaren/ytj_client)
 
 
 A really small gem to fetch and parse data from the Finnish Patent and Registration Office's (PRH) YTJ-tiedot (business information system) API at http://avoindata.prh.fi/ytj.html
