@@ -3,6 +3,8 @@ require 'logger'
 
 module YtjClient
 
+  YTJ_API_URL = 'http://avoindata.prh.fi:80/bis/v1/'.freeze
+
   class << self
 
     # Public method to be called
@@ -29,7 +31,7 @@ module YtjClient
 
       # Returns a hash with all company data from YTJ
       def api_call(business_id)
-        url = "http://avoindata.prh.fi:80/bis/v1/#{business_id}"
+        url = "#{YTJ_API_URL}#{business_id}"
         response = RestClient.get url
         JSON.parse(response.body)["results"][0]
       end
