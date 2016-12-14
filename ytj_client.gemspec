@@ -29,5 +29,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry", "~> 0.10.4"
   spec.add_development_dependency 'awesome_print', '~> 1.7', '>= 1.7.0'
 
-  add_runtime_dependency 'rest-client', '~> 2.0', '>= 2.0.0'
+  spec.add_runtime_dependency 'rest-client', '~> 2.0', '>= 2.0.0'
 end
