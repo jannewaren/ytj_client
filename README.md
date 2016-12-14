@@ -4,6 +4,10 @@
 [![Dependency Status](https://gemnasium.com/badges/github.com/jannewaren/ytj_client.svg)](https://gemnasium.com/github.com/jannewaren/ytj_client)
 [![Build Status](https://travis-ci.org/jannewaren/ytj_client.svg?branch=master)](https://travis-ci.org/jannewaren/ytj_client)
 
+[![Test Coverage](https://codeclimate.com/github/jannewaren/ytj_client/badges/coverage.svg)](https://codeclimate.com/github/jannewaren/ytj_client/coverage)
+[![Code Climate](https://codeclimate.com/github/jannewaren/ytj_client/badges/gpa.svg)](https://codeclimate.com/github/jannewaren/ytj_client)
+[![Issue Count](https://codeclimate.com/github/jannewaren/ytj_client/badges/issue_count.svg)](https://codeclimate.com/github/jannewaren/ytj_client)
+
 
 A really small gem to fetch and parse data from the Finnish Patent and Registration Office's (PRH) YTJ-tiedot (business information system) API at http://avoindata.prh.fi/ytj.html
 
