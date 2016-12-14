@@ -8,8 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = YtjClient::VERSION
   spec.authors       = ["Janne Warén"]
   spec.email         = ["janne.waren@iki.fi"]
+  spec.licenses      = ['MIT']
 
-  spec.summary       = 'Client for communicating with Finnish Patent and Registration Office (PRH) API'
+  spec.summary       = 'Client for communicating with Finnish Patent and Registration Office (PRH) YTJ-tiedot API'
   spec.description   = 'Fetches data with business_id from the YTJ API at http://avoindata.prh.fi/ytj.html'
   spec.homepage      = 'https://github.com/jannewaren/ytj_client'
 
@@ -23,10 +24,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "vcr", "~> 3.0.3"
-  spec.add_development_dependency "webmock", "~> 2.3.1"
+  spec.add_development_dependency 'vcr', '~> 3.0', '>= 3.0.3'
+  spec.add_development_dependency 'webmock', '~> 2.3', '>= 2.3.1'
   spec.add_development_dependency "pry", "~> 0.10.4"
-  spec.add_development_dependency "awesome_print", "~> 1.7.0"
+  spec.add_development_dependency 'awesome_print', '~> 1.7', '>= 1.7.0'
 
-  spec.add_dependency "rest-client", "~> 2.0.0"
+  add_runtime_dependency 'rest-client', '~> 2.0', '>= 2.0.0'
 end
