@@ -1,5 +1,6 @@
 require "ytj_client/version"
 require 'logger'
+require 'restclient'
 
 module YtjClient
 
