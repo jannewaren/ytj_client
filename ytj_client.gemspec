@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'awesome_print', '~> 1.7', '>= 1.7.0'
 
   spec.add_runtime_dependency 'rest-client', '~> 2.0', '>= 2.0.0'
+  spec.add_runtime_dependency 'activesupport', '~> 5.0', '>= 5.0.1'
 end

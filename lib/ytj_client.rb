@@ -1,10 +1,18 @@
-require "ytj_client/version"
+require 'ytj_client/version'
 require 'logger'
 require 'restclient'
+
+require 'active_support'
+require 'active_support/core_ext/object/blank'
+require 'active_support/core_ext/hash/slice'
+require 'active_support/core_ext/hash/keys'
+
 
 module YtjClient
 
   YTJ_API_URL = 'http://avoindata.prh.fi:80/bis/v1/'.freeze
+  TR_API_URL = 'http://avoindata.prh.fi:80/tr/v1?totalResults=false&maxResults=1000&resultsFrom=0&companyRegistrationFrom=
+'.freeze
 
   class << self
 
@@ -28,7 +36,26 @@ module YtjClient
       logger.error "Error fetching data from YTJ: #{$!.message} - #{$!.backtrace}"
     end
 
+    def fetch_all_companies(to_date = '1896-01-01')
+      all_companies = []
+      url = TR_API_URL+to_date
+
+      while true
+        companies, url = fetch_1000_companies(url)
+        companies.each do |result|
+          all_companies << result.slice("businessId", "name", "companyForm", "registrationDate").symbolize_keys
+        end
+        break if url.blank?
+      end
+      return all_companies
+    end
+
     private
+
+      def fetch_1000_companies(url)
+        response = JSON.parse(RestClient.get(url).body)
+        return response["results"], response["nextResultsUri"]
+      end
 
       # Returns a hash with all company data from YTJ
       def api_call(business_id)
