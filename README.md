@@ -52,4 +52,13 @@ YtjClient.fetch_company('2331972-7')
 #     }
 # }
 ```
+## Version history
 
+### 0.2.2
+
+- fetch all Finnish companies from TR api
+
+### 0.2.1
+
+- first working Version
+- fetching company details with business_id
