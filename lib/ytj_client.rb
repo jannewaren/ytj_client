@@ -42,10 +42,13 @@ module YtjClient
 
       while true
         companies, url = fetch_1000_companies(url)
+        logger.info "Fetched #{compaines.size} companies."
+        logger.info "Next URL: #{url}"
         companies.each do |result|
           all_companies << result.slice("businessId", "name", "companyForm", "registrationDate").symbolize_keys
         end
         break if url.blank?
+        logger.info "Got #{all_companies.size} companies, fetching some more"
       end
       return all_companies
     end
