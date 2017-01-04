@@ -54,6 +54,12 @@ YtjClient.fetch_company('2331972-7')
 ```
 ## Version history
 
+### 0.2.3
+
+- Fixes to fetching all the companies:
+  - fetch one year and 1000 companies at a time
+  - save to csv right away
+
 ### 0.2.2
 
 - fetch all Finnish companies from TR api
