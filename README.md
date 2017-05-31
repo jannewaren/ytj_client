@@ -18,12 +18,12 @@ Makes the API call for you and parses the relevant (in my opinion) information t
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ytj_client'
+gem 'ytj_client', '~> 0.3'
 ```
 
 And then execute:
 
-    $ bundle intall
+    $ bundle install
 
 Or install it yourself as:
 
@@ -31,11 +31,12 @@ Or install it yourself as:
 
 ## Usage
 
-Currently only supports getting company information with a business_id:
+### fetch_company
+
+Fetch company details with a business_id:
 
 ```ruby
 require 'ytj_client'
-
 YtjClient.fetch_company('2331972-7')
 # => #Hash {
 #           :business_id => "2331972-7",
@@ -52,15 +53,42 @@ YtjClient.fetch_company('2331972-7')
 #     }
 # }
 ```
+
+### fetch_companies
+
+Fetch companies between two dates.
+
+```ruby
+require 'ytj_client'
+companies = YtjClient.fetch_companies(start_date: '2017-05-01',
+                                      end_date: '2017-05-31',
+                                      options: { mode: :array })
+companies.each { |company| p company.inspect }
+```
+
+### fetch_all_companies
+
+Fetch all companies that are available in the TR API since the year 1896. This is well over 300 000 companies so it will take a while. Saves the results in a companies.csv file.
+
+```ruby
+require 'ytj_client'
+YtjClient.fetch_all_companies
+```
+
 ## Version history
 
-### 0.3.0
+### 0.3.1 (2017-05-31)
+
+- Minor changes, refactoring
+- Better documentation
+
+### 0.3.0 (2017-05-31)
 
 - Breaking changes, new API methods:
   - fetch_company (fetch details of a company with business_id)
   - fetch_companies (fetch companies between two dates)
   - fetch_all_companies (fetch all companies since the year 1896)
-- fetch_companies supports :mode argument, to save into CSV or just return the array
+- fetch_companies supports :mode argument, to save into :csv or just return the :array
 - Dependency updates
 
 ### 0.2.3

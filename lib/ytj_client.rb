@@ -51,7 +51,7 @@ module YtjClient
       end
 
       logger.info "Fetched #{overall_fetched_companies.size} companies and saved to #{CSV_FILENAME}"
-      overall_fetched_companies
+      overall_fetched_companies.flatten
     rescue
       logger.error "Error fetching data from TR API: #{$!.message} - #{$!.backtrace}"
     end
@@ -59,7 +59,7 @@ module YtjClient
     def fetch_companies(start_date:, end_date:, options: {})
       overall_fetched_companies = fetch_timespan(start_date: start_date, end_date: end_date, options: options)
       logger.info "Fetched #{overall_fetched_companies.size} companies."
-      return overall_fetched_companies
+      overall_fetched_companies.flatten
     rescue
       logger.error "Error fetching data from TR API: #{$!.message} - #{$!.backtrace}"
     end
