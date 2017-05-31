@@ -54,6 +54,15 @@ YtjClient.fetch_company('2331972-7')
 ```
 ## Version history
 
+### 0.3.0
+
+- Breaking changes, new API methods:
+  - fetch_company (fetch details of a company with business_id)
+  - fetch_companies (fetch companies between two dates)
+  - fetch_all_companies (fetch all companies since the year 1896)
+- fetch_companies supports :mode argument, to save into CSV or just return the array
+- Dependency updates
+
 ### 0.2.3
 
 - Fixes to fetching all the companies:

@@ -10,13 +10,15 @@ require 'active_support/core_ext/string/inflections'
 
 require 'json'
 require 'csv'
+require 'date'
 
 module YtjClient
 
   YTJ_API_URL = 'http://avoindata.prh.fi:80/bis/v1/'.freeze
   TR_API_URL = 'http://avoindata.prh.fi:80/tr/v1?totalResults=false&maxResults=1000&resultsFrom=0
 '.freeze
-  START_YEAR = 1896
+    START_YEAR = 1896
+  CSV_FILENAME = 'companies.csv'.freeze
 
   class << self
 
@@ -40,15 +42,23 @@ module YtjClient
       logger.error "Error fetching data from YTJ: #{$!.message} - #{$!.backtrace}"
     end
 
-    def fetch_all_companies(format = 'csv')
-      overall_fetched_companies = 0
-      end_year = Time.now.year
+    def fetch_all_companies
+      overall_fetched_companies = []
 
+      end_year = Time.now.year
       end_year.downto(START_YEAR).to_a.each do |year|
-        overall_fetched_companies += fetch_year(year, format)
+        overall_fetched_companies << fetch_timespan(start_date: "#{year}-01-01", end_date: "#{year}-12-31", options: {mode: :csv})
       end
 
-      logger.info "Fetched #{overall_fetched_companies} companies and saved in #{format}"
+      logger.info "Fetched #{overall_fetched_companies.size} companies and saved to #{CSV_FILENAME}"
+      overall_fetched_companies
+    rescue
+      logger.error "Error fetching data from TR API: #{$!.message} - #{$!.backtrace}"
+    end
+
+    def fetch_companies(start_date:, end_date:, options: {})
+      overall_fetched_companies = fetch_timespan(start_date: start_date, end_date: end_date, options: options)
+      logger.info "Fetched #{overall_fetched_companies.size} companies."
       return overall_fetched_companies
     rescue
       logger.error "Error fetching data from TR API: #{$!.message} - #{$!.backtrace}"
@@ -56,26 +66,33 @@ module YtjClient
 
     private
 
-      def fetch_year(year, format)
-        url = url = TR_API_URL+"&companyRegistrationFrom=#{year}-01-01&companyRegistrationTo=#{year}-12-31"
+      def fetch_timespan(start_date:, end_date:, options: {})
+        url = url = TR_API_URL+"&companyRegistrationFrom=#{start_date}&companyRegistrationTo=#{end_date}"
         fetched_companies = 0
+        all_companies = []
         while true
           companies, url = fetch_1000_companies(url)
           logger.info "Fetched #{companies.size} companies."
           logger.info "Next URL: #{url}"
-          save_companies(companies, format)
+          case options[:mode]
+          when :csv
+            logger.debug "Saving to CSV file."
+            save_companies(companies)
+            all_companies << companies
+          when :array
+            logger.debug "Returning as an Array."
+            all_companies << companies
+          end
           fetched_companies += companies.size
           if url.blank?
-            logger.info "No more companies to get for year #{year}. Last response was #{companies.size} companies: #{companies}"
+            logger.info "No more companies to get for between #{start_date} and #{end_date}. Last response was #{companies.size} companies: #{companies}"
             break
           end
           logger.info "Got #{fetched_companies} companies now, fetching some more"
           sleep 5
         end
-        logger.info "Got #{fetched_companies} for year #{year}. Moving on."
-        return fetched_companies
-      rescue
-        logger.error "Error fetching data for year #{year} from TR API: #{$!.message} - #{$!.backtrace}"
+        logger.info "Got #{fetched_companies} companies between #{start_date} and #{end_date}. Moving on."
+        all_companies.flatten
       end
 
       def fetch_1000_companies(url)
@@ -83,16 +100,11 @@ module YtjClient
         return response["results"], response["nextResultsUri"]
       end
 
-      def save_companies(companies, format)
-        case format
-        when 'csv'
-          CSV.open("companies.csv", "ab") do |csv|
-            companies.each do |company|
-              csv << [company["businessId"], company["companyForm"], company["name"], company["registrationDate"]]
-            end
+      def save_companies(companies)
+        CSV.open(CSV_FILENAME, "ab") do |csv|
+          companies.each do |company|
+            csv << [company["registrationDate"], company["businessId"], company["companyForm"], company["name"]]
           end
-        else
-          logger.info "Unknown save format"
         end
       end
 

@@ -24,11 +24,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency 'vcr', '~> 3.0', '>= 3.0.3'
-  spec.add_development_dependency 'webmock', '~> 2.3', '>= 2.3.1'
+  spec.add_development_dependency 'vcr', '~> 3.0'
+  spec.add_development_dependency 'webmock', '~> 2.3'
   spec.add_development_dependency "pry", "~> 0.10.4"
-  spec.add_development_dependency 'awesome_print', '~> 1.7', '>= 1.7.0'
+  spec.add_development_dependency 'awesome_print', '~> 1.7'
 
-  spec.add_runtime_dependency 'rest-client', '~> 2.0', '>= 2.0.0'
-  spec.add_runtime_dependency 'activesupport', '~> 5.0', '>= 5.0.1'
+  spec.add_runtime_dependency 'rest-client', '~> 2.0'
+  spec.add_runtime_dependency 'activesupport', '~> 5.1'
 end
