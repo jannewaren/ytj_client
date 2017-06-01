@@ -103,7 +103,7 @@ module YtjClient
       def save_companies(companies)
         CSV.open(CSV_FILENAME, "ab") do |csv|
           companies.each do |company|
-            csv << [company["registrationDate"], company["businessId"], company["companyForm"], company["name"]]
+            csv << [company["businessId"], company["companyForm"], company["name"], company["registrationDate"]]
           end
         end
       end

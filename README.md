@@ -77,6 +77,10 @@ YtjClient.fetch_all_companies
 
 ## Version history
 
+### 0.3.2 (2017-06-01)
+
+- Changed the field order in CSV file
+
 ### 0.3.1 (2017-05-31)
 
 - Minor changes, refactoring
