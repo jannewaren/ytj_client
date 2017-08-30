@@ -131,7 +131,7 @@ module YtjClient
 
       def parse_addresses(ytj_data)
         addresses = {}
-        visiting_address =ytj_data["addresses"].select { |address| address["type"] == 1 && address["endDate"] == nil  }.first
+        visiting_address = ytj_data["addresses"].select { |address| address["type"] == 1 && address["endDate"] == nil  }.first
         postal_address = ytj_data["addresses"].select { |address| address["type"] == 2 && address["endDate"] == nil  }.first
         addresses[:visiting_address] = parse_address(visiting_address)
         addresses[:postal_address] = parse_address(postal_address)
@@ -139,6 +139,8 @@ module YtjClient
       end
 
       def parse_address(address)
+        return '' unless address
+
         result = []
         result << address['careOf']
         result << address['street']

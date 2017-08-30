@@ -77,6 +77,10 @@ YtjClient.fetch_all_companies
 
 ## Version history
 
+### 0.3.3 (2017-08-30)
+
+- Fix fetching details when no address is found
+
 ### 0.3.2 (2017-06-01)
 
 - Changed the field order in CSV file
