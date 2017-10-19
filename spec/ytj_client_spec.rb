@@ -24,13 +24,4 @@ describe YtjClient do
     end
   end
 
-  context 'fetches all companies from TR API since past few months' do
-    it 'fetches all companies', vcr: { cassette_name: 'tr_fetch_all_success', allow_playback_repeats: true } do
-      data = described_class.fetch_all_companies('2016-10-01')
-      expect(data.size).to eq 3467
-    end
-  end
-
-
-
 end
